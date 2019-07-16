@@ -150,7 +150,8 @@ Right know we know everything to connect to the service - the IP is 159.122.187.
 Hello World!
 ```
 
-and that's it 🎉🎉🎉. Now you know everything to deploy your own app on Kubernetes.
+and that's it, your app is now available online. Now you know everything to deploy your own app on Kubernetes.
+(Hint: you can test to connect it on your mobile phone)
 
 ![](https://i.imgur.com/QdZZKDm.gif?1)
 
