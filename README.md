@@ -1,5 +1,5 @@
 # IBMCloud Kubernetes Tutorial
-Tutorial how to create a docker image, upload the image on *IBM Container Registry* and deploy it on IBM Kubernetes Services.
+Tutorial how to build a docker image, upload the image on *IBM Container Registry* and deploy it on IBM Kubernetes Services.
 
 ## 1. Writing a Hello World app
 Lets use a simple hello world web app  `src/server.js`
@@ -111,28 +111,23 @@ Check the status of the worker node.
 ```
 ## 5. Deploy a container from your image to the cluster.
 
-Create a service
-```shell 
- $ kubectl run example1 --image=de.icr.io/helloworld-example-ns/helloworld-example 
-```
-
-Deploy
+Deploy the service. You can use config file (`deployment.yml`) to replicate the process of deployment easily but I will use bash command for simplicity
 ```shell 
  $  kubectl expose deployment helloworld-example --type=NodePort --port=8383 --name=helloworld-example-service --target-port=8080  
 ```
+Again, we need to specify that the service is listening on port 8080 which we will redirect to port 8383 (to show the difference). We won't need this port because Kubernetes it redirects again on another somehow chosen port automatically.
 
 check if service is created
 ```shell 
  $ kubectl get services 
 ```
-
 you should see something like this
 ```
 NAME                        TYPE        CLUSTER-IP  EXTERNAL-IP   PORT(S)          AGE
 helloworld-example-service  NodePort    172.x.x.x   <none>        8383:32029/TCP   3h15m
 kubernetes                  ClusterIP   172.x.x.x   <none>        443/TCP          3h25m
 ```
-Now we know the port from which the service is accessible from out. `8383:32029/TCP` is the same notation as above, so we can access the service on the port `32039`.
+Now we know the port from which the service is accessible from outside. `8383:32029/TCP` is the same notation as above, so we can access the service on the port `32039` (Kubernetes redirects the port `8383` to `32029` automatically)
 
 Since the External-IP of the service is not available (available only in the Premium version) we need to find out the IP adress of the worker in cluster where the service runs. We run again
 
@@ -145,7 +140,10 @@ ID  Public IP   Private IP  Machine Type   State    Status   Zone    Version
 x   159.x.x.x   10.x.x.x    free           normal   Ready    mil01   1.13.7_1528 
 ```
 
-Right know we know everything to connect to the service - the IP is 159.x.x.x and the port is 32029 so we will try to connect to [159.x.x.x:32029]() and we get 
+
+## 6. Testing
+
+Right know we know everything to connect to the service - the IP is `159.x.x.x` and the port is `32029` so we will try to connect to [159.x.x.x:32029]() and we get 
 ```
 Hello World!
 ```
