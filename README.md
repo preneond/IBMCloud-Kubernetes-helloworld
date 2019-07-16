@@ -145,7 +145,7 @@ ID  Public IP   Private IP  Machine Type   State    Status   Zone    Version
 x   159.x.x.x   10.x.x.x    free           normal   Ready    mil01   1.13.7_1528 
 ```
 
-Right know we know everything to connect to the service - the IP is 159.122.187.43 and the port is 32029 so we will try to connect to [159.x.x.x:32029]() and we get 
+Right know we know everything to connect to the service - the IP is 159.x.x.x and the port is 32029 so we will try to connect to [159.x.x.x:32029]() and we get 
 ```
 Hello World!
 ```
