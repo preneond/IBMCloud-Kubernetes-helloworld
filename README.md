@@ -137,7 +137,7 @@ Now we know the port from which the service is accessible from out. `8383:32029/
 Since the External-IP of the service is not available (available only in the Premium version) we need to find out the IP adress of the worker in cluster where the service runs. We run again
 
 ```shell 
- $  ibmcloud ks workers --cluster <cluster_name_or_ID> 
+ $  ibmcloud ks workers --cluster helloworld-example-cluster
 ```
 and we get output like this
 ```
