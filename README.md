@@ -1,8 +1,8 @@
 # IBMCloud Kubernetes Tutorial
-Tutorial how to create a docker image, upload the image on *IBM Container Registry* and deploy it on IBM Kubernetes Services. Star the repository if you liked the tutorial.
+Tutorial how to create a docker image, upload the image on *IBM Container Registry* and deploy it on IBM Kubernetes Services.
 
 ## 1. Writing a Hello World app
-Lets have a simple hello world program `src/server.js`
+Lets use a simple hello world web app  `src/server.js`
 
 ```javascript
 var http = require('http');
@@ -73,21 +73,25 @@ For more details about IBM Container Registry click [here](https://cloud.ibm.com
 $ ibmcloud cr login
 ```
 
-2. Choose a repository and tag by which you can identify the image. 
+2. Choose an image that we created above and tag it to the Container Registry adress.
 ```shell
 $ docker tag helloworld-example de.icr.io/helloworld-example-ns/helloworld-example
 ```
 
-3. Push the image.
+3. Push the image to Cloud Container registry.
 ```shell
 $ docker push de.icr.io/helloworld-example-ns/helloworld-example
 ```
 
-4. Check if the image is in private registry
+4. You can Check if the image is in private registry
 ```shell
 $ ibmcloud cr image-list
 ```
-
+you should get something like that
+```
+REPOSITORY                                          TAG  DIGEST         NAMESPACE               CREATED        SIZE     SECURITY STATUS   
+de.icr.io/helloworld-example-ns/helloworld-example  1    110c84897f17   watsonilab-ns-example   17 hours ago   27 MB    No Issues  
+```
 
 ## 4. Create a Kubernetes cluster in IBM Cloud Kubernetes Service.
 Create a cluster. Let's name it `helloworld-example-cluster`
@@ -149,3 +153,5 @@ Hello World!
 and that's it 🎉🎉🎉. Now you know everything to deploy your own app on Kubernetes.
 
 ![](https://i.imgur.com/QdZZKDm.gif?1)
+
+If you liked the tutorial, star the repository to give me the feedback.
