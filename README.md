@@ -1,5 +1,5 @@
 # IBMCloud Kubernetes Tutorial
-Tutorial how to create a docker image, upload the image on *IBM Container Registry* and deploy it on IBM Kubernetes Services. 
+Tutorial how to create a docker image, upload the image on *IBM Container Registry* and deploy it on IBM Kubernetes Services. Star the repository if you liked the tutorial.
 
 ## 1. Writing a Hello World app
 ------
@@ -93,15 +93,63 @@ $ ibmcloud cr image-list
 ```
 
 
-## Create a Kubernetes cluster in IBM Cloud Kubernetes Service.
+## 4. Create a Kubernetes cluster in IBM Cloud Kubernetes Service.
+---
+Create a cluster.
 ```shell
 $ ibmcloud ks cluster-create --name my_cluster
 ```
 
-```shell
-$ ibmcloud ks cluster-create --name my_cluster
-```
 
+Verify that the creation of the cluster was requested. It can take a few minutes for the worker node machine to be ordered.
 ```shell 
  $ ibmcloud ks clusters
 ```
+
+Check the status of the worker node.
+```shell 
+ $  ibmcloud ks workers --cluster <cluster_name_or_ID> 
+```
+## 5. Deploy a container from your image to the cluster.
+
+```shell 
+ $ kubectl run example1 --image=de.icr.io/watsonilab-ns-example/watsonilab-repo-example 
+```
+
+Deplo
+```shell 
+ $  kubectl expose deployment hello-node --type=NodePort --port=8383 --name=hello-node-service --target-port=8080  
+```
+
+check if service is created
+```shell 
+ $ kubectl get services 
+```
+
+you should see something like this
+```
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+hello-node-service   NodePort    172.21.160.34   <none>        8383:32029/TCP   3h15m
+kubernetes           ClusterIP   172.21.0.1      <none>        443/TCP          3h25m
+```
+Now we know the port from which the service is accessible from out. `8383:32029/TCP` is the same notation as above, so we can access the service on the port `32039`.
+
+Since the External-IP of the service is not available (available only in the Premium version) we need to find out the IP adress of the worker in cluster where the service runs. We run again
+
+```shell 
+ $  ibmcloud ks workers --cluster <cluster_name_or_ID> 
+```
+and we get output like this
+```
+ID                                                 Public IP        Private IP     Machine Type   State    Status   Zone    Version   
+kube-mil01-pa276fda8d92764f8c9898465b297de652-w1   159.122.187.43   10.144.183.7   free           normal   Ready    mil01   1.13.7_1528 
+```
+
+Right know we know everything to connect to the service - the IP is 159.122.187.43 and the port is 32029 so we will try to connect to [159.122.187.43:32029]() and we get 
+```
+Hello World!
+```
+
+and that's it 🎉🎉🎉. Now you know everything to deploy your own app on Kubernetes.
+
+![](https://i.imgur.com/QdZZKDm.gif?1)
