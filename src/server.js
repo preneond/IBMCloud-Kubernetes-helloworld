@@ -6,5 +6,6 @@ var handleRequest = (request,response) => {
   response.end('Hello World!');
 };
 
+console.log('Listening on port 8080...')
 var server = http.createServer(handleRequest);
 server.listen(8080);
