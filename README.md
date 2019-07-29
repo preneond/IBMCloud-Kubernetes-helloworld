@@ -111,6 +111,11 @@ Check the status of the worker node.
 ```
 ## 5. Deploy a container from your image to the cluster.
 
+Create a service
+```shell 
+ $ kubectl run example1 --image=de.icr.io/helloworld-example-ns/helloworld-example 
+```
+
 Deploy the service. You can use config file (`deployment.yml`) to replicate the process of deployment easily but I will use bash command for simplicity
 ```shell 
  $  kubectl expose deployment helloworld-example --type=NodePort --port=8383 --name=helloworld-example-service --target-port=8080  
